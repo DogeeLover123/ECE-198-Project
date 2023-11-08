@@ -1,1 +1,10 @@
 //add code here
+
+int main();
+
+int main() {
+
+
+
+  return 0;
+}
