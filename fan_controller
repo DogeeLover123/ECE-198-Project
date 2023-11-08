@@ -1,10 +1,15 @@
-//add code here
+#include "mbed.h"
 
-int main();
+// Assuming the temperature sensor is connected to PA0
+AnalogIn tempSensor(PA_0);
+
+// fan will be connected to PB0 digital pinout
+DigitalOut fan(PB_0);
 
 int main() {
-
-
-
-  return 0;
+    while(1) {
+        fan(1);
+    }
 }
+
+
