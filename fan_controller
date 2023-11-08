@@ -1,4 +1,3 @@
-
 #include "mbed.h"
 
 // Assuming the temperature sensor is connected to PA0
@@ -13,11 +12,20 @@ int main() {
         float voltage = tempSensor.read() * 3.3; // Convert the 0-1 range to 0-3.3V
 
         // Convert the voltage to temperature in Celsius
-        // This is based on scale based on scale of LM35 temperature sensor
-        float temperature = voltage/1000; 
+        // This formula will depend on the specific temperature sensor you are using
+        float temperature = voltage/1000;
 
-        //TO DO: Make it turn on when above 21 degrees celcius, and turn off when below 21 degrees celcius
+        // If the temperature is 21 degrees or higher, turn the fan on
+        if(temperature >= 21.0) {
+            fan = 1;
+        }
+        // If the temperature is lower than 21 degrees, turn the fan off
+        else {
+            fan = 0;
+        }
+
+        // Wait for 1 second before the next reading
+        wait(1);
     }
 }
-
 
