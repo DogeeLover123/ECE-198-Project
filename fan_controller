@@ -1,14 +1,22 @@
+
 #include "mbed.h"
 
 // Assuming the temperature sensor is connected to PA0
 AnalogIn tempSensor(PA_0);
 
-// fan will be connected to PB0 digital pinout
+// Assuming the fan is connected to PB0
 DigitalOut fan(PB_0);
 
 int main() {
     while(1) {
-        fan(1);
+        // Read the value from the temperature sensor
+        float voltage = tempSensor.read() * 3.3; // Convert the 0-1 range to 0-3.3V
+
+        // Convert the voltage to temperature in Celsius
+        // This is based on scale based on scale of LM35 temperature sensor
+        float temperature = voltage/1000; 
+
+        //TO DO: Make it turn on when above 21 degrees celcius, and turn off when below 21 degrees celcius
     }
 }
 
