@@ -6,20 +6,34 @@ AnalogIn tempSensor(PA_0);
 // Assuming the fan is connected to PB0
 DigitalOut fan(PB_0);
 
+// Define a constant for the temperature threshold
+const float TEMPERATURE_THRESHOLD = 21.0;
+
 int main() {
     while(1) {
         // Read the value from the temperature sensor
         float voltage = tempSensor.read() * 3.3; // Convert the 0-1 range to 0-3.3V
 
         // Convert the voltage to temperature in Celsius
-        // This formula will depend on the specific temperature sensor you are using
         float temperature = voltage/1000;
 
-        // If the temperature is 21 degrees or higher, turn the fan on
-        if(temperature >= 21.0) {
+        // Check that the temperature sensor is connected to PA0
+        if(tempSensor.getPin() != PA_0) {
+            printf("Error: Temperature sensor not connected to PA0\n");
+            return 1;
+        }
+
+        // Check that the fan is connected to PB0
+        if(fan.getPin() != PB_0) {
+            printf("Error: Fan not connected to PB0\n");
+            return 1;
+        }
+
+        // If the temperature is above the threshold, turn the fan on
+        if(temperature >= TEMPERATURE_THRESHOLD) {
             fan = 1;
         }
-        // If the temperature is lower than 21 degrees, turn the fan off
+        // If the temperature is below the threshold, turn the fan off
         else {
             fan = 0;
         }
